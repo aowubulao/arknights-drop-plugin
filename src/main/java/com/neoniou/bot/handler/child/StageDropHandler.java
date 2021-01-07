@@ -18,9 +18,11 @@ import java.util.Locale;
  */
 public class StageDropHandler extends MessageHandler {
 
-    private static final String STR = "#地图掉率 ";
+    private static final String STR = "\\u5730\\u56fe\\u67e5\\u8be2\\u0023.+?";
 
-    private static final int MATCHING = 3;
+    private static final int MATCHING = 1;
+
+    private static final String SHARP = "#";
 
     @Override
     public void handleGroupMessage(GroupMessageEvent event) {
@@ -33,7 +35,7 @@ public class StageDropHandler extends MessageHandler {
             return;
         }
 
-        String code = messageBody.substring(messageBody.lastIndexOf(" ") + 1).toUpperCase(Locale.ROOT);
+        String code = messageBody.substring(messageBody.lastIndexOf(SHARP) + 1).toUpperCase(Locale.ROOT);
         Stage stage = StageStatus.codeKeyMap.get(code);
         if (stage == null) {
             event.getGroup().sendMessage("没有该地图！");

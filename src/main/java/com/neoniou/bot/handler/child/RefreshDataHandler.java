@@ -13,7 +13,7 @@ public class RefreshDataHandler extends MessageHandler {
 
     private static final String STR = "#刷新掉率数据";
 
-    private static final int MATCHING = 3;
+    private static final int MATCHING = 2;
 
     @Override
     public void handleGroupMessage(GroupMessageEvent event) {

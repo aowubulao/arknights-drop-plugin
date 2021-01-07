@@ -17,13 +17,15 @@ import java.util.List;
  */
 public class ItemDropHandler extends MessageHandler {
 
-    private static final String STR = "#物品掉率 ";
+    private static final String STR = "\\u7269\\u54c1\\u67e5\\u8be2\\u0023.+?";
 
-    private static final int MATCHING = 3;
+    private static final int MATCHING = 1;
 
     private static final int MAX_SHOW = 3;
 
     private static final String ENDLESS = "∞";
+
+    private static final String SHARP = "#";
 
     @Override
     public void handleGroupMessage(GroupMessageEvent event) {
@@ -36,7 +38,7 @@ public class ItemDropHandler extends MessageHandler {
             return;
         }
 
-        String itemName = messageBody.substring(messageBody.lastIndexOf(" ") + 1);
+        String itemName = messageBody.substring(messageBody.lastIndexOf(SHARP) + 1);
         if (ItemStatus.nameKeyMap.containsKey(itemName)) {
             getDropAndSend(ItemStatus.nameKeyMap.get(itemName), event);
         } else if (ItemStatus.aliasMap.containsKey(itemName)) {
