@@ -7,7 +7,7 @@ import com.neoniou.bot.status.StageStatus;
 import com.neoniou.bot.status.StatusTotal;
 import com.neoniou.bot.status.pojo.Stage;
 import com.neoniou.bot.status.pojo.StageDropInfo;
-import net.mamoe.mirai.message.GroupMessageEvent;
+import net.mamoe.mirai.event.events.MessageEvent;
 
 import java.util.List;
 import java.util.Locale;
@@ -25,20 +25,20 @@ public class StageDropHandler extends MessageHandler {
     private static final String SHARP = "#";
 
     @Override
-    public void handleGroupMessage(GroupMessageEvent event) {
+    public void handleMessage(MessageEvent event) {
         String messageBody = getMessageBody(event);
         if (!isMatch(messageBody, STR, MATCHING)) {
             return;
         }
         if (!StatusTotal.isOk) {
-            event.getGroup().sendMessage("正在加载数据中，请稍后再试...");
+            event.getSubject().sendMessage("正在加载数据中，请稍后再试...");
             return;
         }
 
         String code = messageBody.substring(messageBody.lastIndexOf(SHARP) + 1).toUpperCase(Locale.ROOT);
         Stage stage = StageStatus.codeKeyMap.get(code);
         if (stage == null) {
-            event.getGroup().sendMessage("没有该地图！");
+            event.getSubject().sendMessage("没有该地图！");
             return;
         }
 
@@ -53,6 +53,6 @@ public class StageDropHandler extends MessageHandler {
         sb.deleteCharAt(sb.length() - 1);
         sb.append("\n数据来源：企鹅物流数据统计（https://exusi.ai/").append(code).append("）");
 
-        event.getGroup().sendMessage(sb.toString());
+        event.getSubject().sendMessage(sb.toString());
     }
 }
