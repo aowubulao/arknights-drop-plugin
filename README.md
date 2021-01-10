@@ -4,7 +4,11 @@
 
 查询明日方舟地图及物品的掉落统计，数据来源：[企鹅物流数据统计](https://penguin-stats.io/)
 
-适配mirai1.x版本
+适配mirai-console1.x以及2.0-m2
+
+**mirai-console1.0请下载releases中的0.x版本**：[arknights-drop-plugin-0.0.2](https://github.com/aowubulao/arknights-drop-plugin/releases/tag/v0.0.2)
+
+**mirai-console2.0请下载releases中的1,x版本**：[arknights-drop-plugin-1.0.0](https://github.com/aowubulao/arknights-drop-plugin/releases/tag/v1.0.0)
 
 ### 2、使用
 
