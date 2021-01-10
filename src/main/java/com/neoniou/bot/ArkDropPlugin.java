@@ -9,8 +9,8 @@ import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescriptionBuilder;
 import net.mamoe.mirai.event.EventHandler;
 import net.mamoe.mirai.event.Events;
 import net.mamoe.mirai.event.SimpleListenerHost;
-import net.mamoe.mirai.message.FriendMessageEvent;
-import net.mamoe.mirai.message.GroupMessageEvent;
+import net.mamoe.mirai.event.events.FriendMessageEvent;
+import net.mamoe.mirai.event.events.GroupMessageEvent;
 import net.mamoe.mirai.utils.MiraiLogger;
 
 /**
@@ -35,7 +35,6 @@ public class ArkDropPlugin extends JavaPlugin {
     public void onEnable() {
         ThreadUtil.createDefaultThreadPool(3);
         ThreadUtil.execute(StatusTotal::initStatus);
-
 
         Events.registerEvents(this, new SimpleListenerHost(this.getCoroutineContext()) {
             @EventHandler

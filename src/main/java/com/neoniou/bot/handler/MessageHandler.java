@@ -1,10 +1,8 @@
 package com.neoniou.bot.handler;
 
 import cn.hutool.http.HttpRequest;
-import net.mamoe.mirai.Bot;
-import net.mamoe.mirai.message.GroupMessageEvent;
-import net.mamoe.mirai.message.MessageEvent;
-import net.mamoe.mirai.message.data.MessageUtils;
+import net.mamoe.mirai.event.events.MessageEvent;
+import net.mamoe.mirai.message.data.Image;
 
 import java.io.InputStream;
 
@@ -30,8 +28,12 @@ public abstract class MessageHandler {
      * @return Message Body 原消息
      */
     public static String getMessageBody(MessageEvent event) {
-        String msgString = event.getMessage().toString();
-        return msgString.substring(msgString.indexOf("]") + 1);
+        Object[] message = event.getMessage().toArray();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 1; i < message.length; i++) {
+            sb.append(message[i]);
+        }
+        return sb.toString();
     }
 
     /**
@@ -75,15 +77,14 @@ public abstract class MessageHandler {
      */
     public static String getImageUrl(MessageEvent event) {
         String messageBody = getMessageBody(event);
-        String imageId = messageBody.substring(messageBody.indexOf(PREFIX), messageBody.indexOf(SUFFIX));
-        Bot bot = event.getBot();
-        return bot.queryImageUrl(MessageUtils.newImage(imageId));
+        String imageId = messageBody.substring(messageBody.indexOf(PREFIX), messageBody.lastIndexOf(SUFFIX));
+        return Image.queryUrl(Image.fromId(imageId));
     }
 
     /**
-     * 处理群消息
+     * 处理消息总事件
      *
-     * @param event 群消息事件
+     * @param event 消息事件
      */
-    public abstract void handleGroupMessage(GroupMessageEvent event);
+    public abstract void handleMessage(MessageEvent event);
 }
